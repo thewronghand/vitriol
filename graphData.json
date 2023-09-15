@@ -1,23 +1,184 @@
 {
   "nodes": [
     {
+      "id": "Framer-motion",
+      "label": "Framer-motion",
+      "exists": true
+    },
+    {
+      "id": "Motion Elements",
+      "label": "Motion Elements",
+      "exists": true
+    },
+    {
       "id": "test1",
-      "label": "test1"
+      "label": "test1",
+      "exists": true
     },
     {
       "id": "test2",
-      "label": "test2"
+      "label": "test2",
+      "exists": true
     },
     {
       "id": "test3",
-      "label": "test3"
+      "label": "test3",
+      "exists": true
     },
     {
       "id": "test4",
-      "label": "test4"
+      "label": "test4",
+      "exists": true
+    },
+    {
+      "id": "React",
+      "label": "React",
+      "exists": false
+    },
+    {
+      "id": "API",
+      "label": "API",
+      "exists": false
+    },
+    {
+      "id": "Variants",
+      "label": "Variants",
+      "exists": false
+    },
+    {
+      "id": "SSR",
+      "label": "SSR",
+      "exists": false
+    },
+    {
+      "id": "Next.js",
+      "label": "Next.js",
+      "exists": false
+    },
+    {
+      "id": "Animate Prop",
+      "label": "Animate Prop",
+      "exists": false
+    },
+    {
+      "id": "Initial Prop",
+      "label": "Initial Prop",
+      "exists": false
+    },
+    {
+      "id": "Exit Prop",
+      "label": "Exit Prop",
+      "exists": false
+    },
+    {
+      "id": "AnimatePresence",
+      "label": "AnimatePresence",
+      "exists": false
+    },
+    {
+      "id": "Transition Prop",
+      "label": "Transition Prop",
+      "exists": false
+    },
+    {
+      "id": "Drag",
+      "label": "Drag",
+      "exists": false
+    },
+    {
+      "id": "Orchestration",
+      "label": "Orchestration",
+      "exists": false
+    },
+    {
+      "id": "useAnimation",
+      "label": "useAnimation",
+      "exists": false
+    },
+    {
+      "id": "Motion Values",
+      "label": "Motion Values",
+      "exists": false
+    },
+    {
+      "id": "Custom Variants & Functions",
+      "label": "Custom Variants & Functions",
+      "exists": false
     }
   ],
   "links": [
+    {
+      "source": "Framer-motion",
+      "target": "React"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "API"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Variants"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "SSR"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Next.js"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Motion Elements"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Animate Prop"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Initial Prop"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Exit Prop"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "AnimatePresence"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Transition Prop"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Drag"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Orchestration"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "useAnimation"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Motion Values"
+    },
+    {
+      "source": "Framer-motion",
+      "target": "Custom Variants & Functions"
+    },
+    {
+      "source": "Motion Elements",
+      "target": "Framer-motion"
+    },
+    {
+      "source": "Motion Elements",
+      "target": "Initial Prop"
+    },
     {
       "source": "test1",
       "target": "test2"

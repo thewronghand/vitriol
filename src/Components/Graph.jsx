@@ -49,10 +49,18 @@ function Graph({ data, currentId }) {
         ).length;
         return 5 * (1 + linkedNodesCount * 0.1);
       })
-      .attr("fill", (d) => (d.id === currentId ? "purple" : "steelblue"))
+      .attr("fill", (d) => {
+        if (d.id === currentId) {
+          return d.exists === false ? "green" : "purple";
+        }
+        return d.exists === false ? "red" : "steelblue";
+      })
+      .attr("cursor", (d) => (d.exists === false ? "default" : "pointer")) // 커서 스타일 추가
       .call(drag(simulation))
       .on("click", (event, d) => {
-        navigate(`/post/${d.id}`);
+        if (d.exists !== false) {
+          navigate(`/post/${d.id}`);
+        }
       });
 
     node.append("title").text((d) => d.id);
@@ -114,13 +122,7 @@ function Graph({ data, currentId }) {
     }
   }, [data, navigate, currentId]);
 
-  return (
-    <svg
-      ref={svgRef}
-      width={window.innerWidth}
-      height={window.innerHeight}
-    ></svg>
-  );
+  return <svg ref={svgRef} width="100%" height="100%"></svg>;
 }
 
 export default Graph;

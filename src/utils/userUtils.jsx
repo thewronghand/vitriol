@@ -1,4 +1,5 @@
 import slugify from "@sindresorhus/slugify";
+import { Link } from "react-router-dom";
 
 export function headerToId(heading) {
   const slugifiedHeader = slugify(heading);
@@ -44,21 +45,33 @@ export function namedHeadingsFilter(md) {
   md.core.ruler.push("named_headings", namedHeadings.bind(null, md));
 }
 
-function convertObsidianLinkToReactLink(str) {
-  return str.replace(
-    /\[\[(.*?)(\|(.*?))?\]\]/g,
-    function (match, linkText, _, alias) {
-      const displayText = alias || linkText;
-      // React-Router의 <Link> 대신 일반 <a> 태그를 사용합니다.
-      return `<a href="/post/${linkText}">${displayText}</a>`;
-    }
-  );
+export function convertObsidianLinks(text) {
+  const regex = /\[\[(.*?)\]\]/g;
+  return text.replace(regex, (match, linkText) => {
+    const encodedLinkText = encodeURIComponent(linkText);
+    return `[${linkText}](/post/${encodedLinkText})`;
+  });
 }
 
-export function obsidianLinkPlugin(md) {
-  const defaultRender = md.renderer.rules.text;
-  md.renderer.rules.text = function (tokens, idx, options, env, self) {
-    tokens[idx].content = convertObsidianLinkToReactLink(tokens[idx].content);
-    return defaultRender(tokens, idx, options, env, self);
-  };
+export function ObsidianLink({ node, children }) {
+  const { href } = node;
+  console.log(href);
+
+  if (href.startsWith("[[") && href.endsWith("]]")) {
+    const linkText = href.slice(2, -2); // "[[text]]" => "text"
+    const encodedLinkText = encodeURIComponent(linkText); // 띄어쓰기를 포함한 텍스트를 인코딩
+    return <Link to={`/post/${encodedLinkText}`}>{children}</Link>;
+  }
+
+  return <a href={href}>{children}</a>;
+}
+
+export function NamedHeadings({ level, children }) {
+  const textContent = children[0].props.children;
+  const slugifiedHeader = slugify(textContent);
+  const id = slugifiedHeader || textContent;
+
+  const HeadingComponent = `h${level}`;
+
+  return <HeadingComponent id={id}>{children}</HeadingComponent>;
 }
