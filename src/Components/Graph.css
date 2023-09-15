@@ -1,0 +1,8 @@
+line {
+  stroke: lightgray;
+  stroke-width: 1px;
+}
+
+.nodes circle {
+  cursor: pointer;
+}
