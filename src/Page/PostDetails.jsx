@@ -2,47 +2,42 @@ import { useParams } from "react-router-dom";
 import Graph from "../Components/Graph";
 import { useState, useEffect } from "react";
 import useObsidianMarkdown from "../utils/hooks/useObsidianMarkdown";
-import parse from "html-react-parser";
-import { Link } from "react-router-dom";
-
-const options = {
-  replace: ({ attribs, children }) => {
-    if (!attribs) {
-      console.log("호출되지않음");
-      return;
-    }
-
-    // a 태그의 href 속성을 확인하여 Link 컴포넌트로 변환
-    if (attribs.href && attribs.href.startsWith("/post/")) {
-      console.log("호출됨");
-      return <Link to={attribs.href}>{children}</Link>;
-    }
-  },
-};
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import rehypeRaw from "rehype-raw";
+import { convertObsidianLinks } from "../utils/userUtils";
+import remarkGfm from "remark-gfm";
 
 export default function PostDetails({ data }) {
   const [content, setContent] = useState("");
   const { id } = useParams();
-  const markdownRenderer = useObsidianMarkdown();
+  const components = useObsidianMarkdown();
 
   useEffect(() => {
     fetch(`/src/notes/${id}.md`)
       .then((response) => response.text())
       .then((text) => {
-        const htmlContent = markdownRenderer.render(text);
-        setContent(htmlContent);
+        const convertedText = convertObsidianLinks(text);
+        setContent(convertedText); // markdown 문자열을 직접 상태로 저장합니다.
       })
       .catch((err) => {
         console.error("Failed to load the markdown file:", err);
       });
-  }, [id, markdownRenderer]);
-
-  const reactComponents = parse(content, options);
+  }, [id, components]);
 
   return (
-    <div>
-      <Graph data={data} currentId={id} />
-      <div>{reactComponents}</div>
+    <div style={{ display: "flex", width: "100%", height: "100%" }}>
+      <div style={{ width: "50%" }}>
+        <Graph data={data} currentId={id} />
+      </div>
+      <div style={{ minWidth: "50%", maxWidth: "50%" }}>
+        <ReactMarkdown
+          rehypePlugins={[rehypeRaw]}
+          components={components}
+          remarkPlugins={[remarkGfm]}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
     </div>
   );
 }

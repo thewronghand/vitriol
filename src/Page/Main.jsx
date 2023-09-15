@@ -2,7 +2,7 @@ import Graph from "../Components/Graph";
 
 export default function Main({ data }) {
   return (
-    <div>
+    <div style={{ width: "100%", height: "100%" }}>
       <Graph data={data} />
     </div>
   );

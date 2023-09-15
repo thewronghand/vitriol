@@ -18,7 +18,10 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ display: "flex", width: "100vw", height: "100vh" }}
+    >
       <Routes>
         <Route path="/" element={<Main data={graphData} />} />
         <Route path="/post/:id" element={<PostDetails data={graphData} />} />

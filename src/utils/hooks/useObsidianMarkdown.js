@@ -1,58 +1,20 @@
-import {
-  headerToId,
-  namedHeadingsFilter,
-  obsidianLinkPlugin,
-} from "../userUtils";
 import { useState, useEffect } from "react";
-import MarkdownIt from "markdown-it";
-import mdAnchor from "markdown-it-anchor";
-import mdMark from "markdown-it-mark";
-import mdFootnote from "markdown-it-footnote";
-import mdMathjax3 from "markdown-it-mathjax3";
-import mdAttrs from "markdown-it-attrs";
-import mdTaskCheckbox from "markdown-it-task-checkbox";
-import mdPlantUML from "markdown-it-plantuml";
+import { ObsidianLink } from "../userUtils";
+import { NamedHeadings } from "../userUtils";
 
 function useObsidianMarkdown() {
-  const [markdownLib, setMarkdownLib] = useState(null);
+  const [components, setComponents] = useState({});
 
   useEffect(() => {
-    if (!markdownLib) {
-      const md = new MarkdownIt({
-        breaks: true,
-        html: true,
-      })
-        .use(mdAnchor, { slugify: headerToId })
-        .use(mdMark)
-        .use(mdFootnote)
-        .use(mdMathjax3, {
-          tex: {
-            inlineMath: [["$", "$"]],
-          },
-          options: {
-            skipHtmlTags: { "[-]": ["pre"] },
-          },
-        })
-        .use(mdAttrs)
-        .use(mdTaskCheckbox, {
-          disabled: true,
-          divWrap: false,
-          divClass: "checkbox",
-          idPrefix: "cbx_",
-          ulClass: "task-list",
-          liClass: "task-list-item",
-        })
-        .use(mdPlantUML, {
-          openMarker: "```plantuml",
-          closeMarker: "```",
-        })
-        .use(namedHeadingsFilter)
-        .use(obsidianLinkPlugin); // 이 부분이 추가됩니다.
-      setMarkdownLib(md);
-    }
-  }, [markdownLib]);
+    const renderers = {
+      link: ObsidianLink,
+      heading: NamedHeadings,
+      // 기타 렌더러는 필요에 따라 여기에 추가하세요.
+    };
+    setComponents(renderers);
+  }, []);
 
-  return markdownLib;
+  return components;
 }
 
 export default useObsidianMarkdown;
