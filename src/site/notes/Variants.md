@@ -2,7 +2,7 @@
 {"dg-home":"true","dg-publish":true,"permalink":"/Variants/","tags":["gardenEntry"],"dgPassFrontmatter":true}
 ---
 
-
+#framer-motion
 variants는 [[Framer-motion\|Framer-motion]]에서 중요한 개념 중 하나다. variants는 애니메이션 상태를 명시적으로 정의하는 방법을 제공하며, 그 결과로 코드의 가독성을 향상시키고 복잡한 애니메이션 로직을 관리하는 데 도음이 된다.
 
 variants를 사용하는 기본 아이디어는 애니메이션 가능한 값의 그룹(또는 "상태")을 미리 정의하고, 이러한 상태 간의 전환을 간결하게 관리하는 것이다.
