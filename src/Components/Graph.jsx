@@ -2,8 +2,10 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { useNavigate } from "react-router-dom";
 import "./Graph.css";
+import { linkDistance } from "../utils/graphUtils";
 
 function Graph({ data, currentId }) {
+  console.log("rerendered");
   const svgRef = useRef(null);
   const navigate = useNavigate();
 
@@ -13,8 +15,8 @@ function Graph({ data, currentId }) {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const svgWidth = svgRef.current.clientWidth;
+    const svgHeight = svgRef.current.clientHeight;
 
     const simulation = d3
       .forceSimulation(data.nodes)
@@ -23,10 +25,20 @@ function Graph({ data, currentId }) {
         d3
           .forceLink(data.links)
           .id((d) => d.id)
-          .distance(100) // 여기에서 .distance(100)을 추가하여 링크의 거리를 조정합니다.
+          .distance((link) => linkDistance(link, data))
       )
-      .force("charge", d3.forceManyBody())
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("x", d3.forceX(svgWidth / 2))
+      .force("y", d3.forceY(svgHeight / 2))
+      .force(
+        "collide",
+        d3.forceCollide().radius((d) => {
+          const linkedNodesCount = data.links.filter(
+            (l) => l.source.id === d.id || l.target.id === d.id
+          ).length;
+          return 5 * (1 + linkedNodesCount * 0.1) + 5;
+        })
+      );
 
     const g = svg.append("g");
 
@@ -55,7 +67,7 @@ function Graph({ data, currentId }) {
         }
         return d.exists === false ? "red" : "steelblue";
       })
-      .attr("cursor", (d) => (d.exists === false ? "default" : "pointer")) // 커서 스타일 추가
+      .attr("cursor", (d) => (d.exists === false ? "default" : "pointer"))
       .call(drag(simulation))
       .on("click", (event, d) => {
         if (d.exists !== false) {
@@ -76,6 +88,15 @@ function Graph({ data, currentId }) {
       .text((d) => d.label)
       .attr("pointer-events", "none");
 
+    // Quadtree 설정하기
+    const quadtree = d3
+      .quadtree()
+      .extent([
+        [-1, -1],
+        [svgWidth + 1, svgHeight + 1],
+      ])
+      .addAll(data.nodes.map((d) => [d.x, d.y]));
+
     simulation.on("tick", () => {
       link
         .attr("x1", (d) => d.source.x)
@@ -85,7 +106,26 @@ function Graph({ data, currentId }) {
 
       node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
 
-      text.attr("x", (d) => d.x).attr("y", (d) => d.y - 15);
+      text
+        .attr("x", (d) => {
+          let tx = d.x;
+          let ty = d.y - 15;
+
+          const closest = quadtree.find(tx, ty);
+
+          if (
+            closest &&
+            d !== closest &&
+            Math.abs(closest[0] - tx) < 15 &&
+            Math.abs(closest[1] - ty) < 15
+          ) {
+            tx += (tx - closest[0]) * 0.05;
+            ty += (ty - closest[1]) * 0.05;
+          }
+
+          return tx;
+        })
+        .attr("y", (d) => d.y - 15);
     });
 
     const zoomHandler = d3
@@ -98,7 +138,7 @@ function Graph({ data, currentId }) {
 
     function drag(simulation) {
       function dragstarted(event, d) {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
+        if (!event.active) simulation.alphaTarget(0.1).restart();
         d.fx = d.x;
         d.fy = d.y;
       }
@@ -109,7 +149,7 @@ function Graph({ data, currentId }) {
       }
 
       function dragended(event, d) {
-        if (!event.active) simulation.alphaTarget(0);
+        if (!event.active) simulation.alphaTarget(0.05);
         d.fx = null;
         d.fy = null;
       }
@@ -122,7 +162,11 @@ function Graph({ data, currentId }) {
     }
   }, [data, navigate, currentId]);
 
-  return <svg ref={svgRef} width="100%" height="100%"></svg>;
+  return (
+    <div style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+      <svg ref={svgRef} width="100%" height="100%" overflow="hidden"></svg>
+    </div>
+  );
 }
 
 export default Graph;

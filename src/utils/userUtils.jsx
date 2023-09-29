@@ -1,5 +1,5 @@
 import slugify from "@sindresorhus/slugify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function headerToId(heading) {
   const slugifiedHeader = slugify(heading);
@@ -50,20 +50,8 @@ export function convertObsidianLinks(text) {
   return text.replace(regex, (match, linkText) => {
     const encodedLinkText = encodeURIComponent(linkText);
     return `[${linkText}](/post/${encodedLinkText})`;
+    // return <Link to={`/post/${encodedLinkText}`}>{linkText}</Link>
   });
-}
-
-export function ObsidianLink({ node, children }) {
-  const { href } = node;
-  console.log(href);
-
-  if (href.startsWith("[[") && href.endsWith("]]")) {
-    const linkText = href.slice(2, -2); // "[[text]]" => "text"
-    const encodedLinkText = encodeURIComponent(linkText); // 띄어쓰기를 포함한 텍스트를 인코딩
-    return <Link to={`/post/${encodedLinkText}`}>{children}</Link>;
-  }
-
-  return <a href={href}>{children}</a>;
 }
 
 export function NamedHeadings({ level, children }) {
@@ -75,3 +63,15 @@ export function NamedHeadings({ level, children }) {
 
   return <HeadingComponent id={id}>{children}</HeadingComponent>;
 }
+
+export function removeConfigSection(markdownText) {
+  const sections = markdownText.split("---");
+  if (sections.length >= 3) {
+    return sections.slice(2).join("---");
+  }
+  return markdownText;
+}
+
+export const removeFileExtension = (filename) => {
+  return filename.split(".").slice(0, -1).join(".");
+};

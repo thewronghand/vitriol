@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import useObsidianMarkdown from "../utils/hooks/useObsidianMarkdown";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import rehypeRaw from "rehype-raw";
-import { convertObsidianLinks } from "../utils/userUtils";
+import { convertObsidianLinks, removeConfigSection } from "../utils/userUtils";
 import remarkGfm from "remark-gfm";
 
 export default function PostDetails({ data }) {
@@ -16,20 +16,32 @@ export default function PostDetails({ data }) {
     fetch(`/src/notes/${id}.md`)
       .then((response) => response.text())
       .then((text) => {
-        const convertedText = convertObsidianLinks(text);
-        setContent(convertedText); // markdown 문자열을 직접 상태로 저장합니다.
+        const cleanText = removeConfigSection(text);
+        const convertedText = convertObsidianLinks(cleanText);
+        setContent(convertedText);
       })
       .catch((err) => {
         console.error("Failed to load the markdown file:", err);
       });
   }, [id, components]);
 
+  console.log(components);
+
   return (
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
       <div style={{ width: "50%" }}>
         <Graph data={data} currentId={id} />
       </div>
-      <div style={{ minWidth: "50%", maxWidth: "50%" }}>
+      <div
+        style={{
+          minWidth: "50%",
+          maxWidth: "50%",
+          textAlign: "left",
+          padding: "15px",
+          overflowY: "scroll",
+        }}
+      >
+        <h1>{id}</h1>
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}
           components={components}

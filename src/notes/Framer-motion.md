@@ -17,8 +17,8 @@ Framer-motion은 복잡한 애니메이션을 간단한 [[API]]로 구현할 수
 
 간단한 예제로, Framer-motion을 사용하여 요소를 페이드인하는 방법을 살펴보자.
 
-```
-import { motion } from 'framer-motion';
+```jsx
+import { motion } from "framer-motion";
 
 function FadeInComponent() {
   return (
@@ -31,7 +31,6 @@ function FadeInComponent() {
     </motion.div>
   );
 }
-
 ```
 
 위의 코드에서 `initial`, `animate`, 그리고 `transition` 속성을 사용하여 요소가 처음에는 투명한 상태에서 시작해 1초동안 천천히 페이드인 되게 만들었다.
