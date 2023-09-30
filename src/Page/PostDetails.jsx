@@ -13,12 +13,13 @@ export default function PostDetails({ data }) {
   const components = useObsidianMarkdown();
 
   useEffect(() => {
-    fetch(`/src/notes/${id}.md`)
+    fetch(`/src/site/notes/${id}.md`)
       .then((response) => response.text())
       .then((text) => {
         const cleanText = removeConfigSection(text);
         const convertedText = convertObsidianLinks(cleanText);
         setContent(convertedText);
+        console.log(content);
       })
       .catch((err) => {
         console.error("Failed to load the markdown file:", err);

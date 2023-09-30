@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const notesDir = "./src/notes";
+const notesDir = "./src/site/notes";
 const outputFile = "./graphData.json";
 
 const extractLinks = (content) => {
@@ -10,7 +10,9 @@ const extractLinks = (content) => {
   let match;
 
   while ((match = linkPattern.exec(content))) {
-    links.push(match[1]);
+    let linkText = match[1];
+    linkText = linkText.split("|")[0].replace(/\\/g, "");
+    links.push(linkText);
   }
 
   return links;

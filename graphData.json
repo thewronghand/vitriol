@@ -6,28 +6,8 @@
       "exists": true
     },
     {
-      "id": "Motion Elements",
-      "label": "Motion Elements",
-      "exists": true
-    },
-    {
-      "id": "test1",
-      "label": "test1",
-      "exists": true
-    },
-    {
-      "id": "test2",
-      "label": "test2",
-      "exists": true
-    },
-    {
-      "id": "test3",
-      "label": "test3",
-      "exists": true
-    },
-    {
-      "id": "test4",
-      "label": "test4",
+      "id": "Variants",
+      "label": "Variants",
       "exists": true
     },
     {
@@ -41,11 +21,6 @@
       "exists": false
     },
     {
-      "id": "Variants",
-      "label": "Variants",
-      "exists": false
-    },
-    {
       "id": "SSR",
       "label": "SSR",
       "exists": false
@@ -53,6 +28,11 @@
     {
       "id": "Next.js",
       "label": "Next.js",
+      "exists": false
+    },
+    {
+      "id": "Motion Elements",
+      "label": "Motion Elements",
       "exists": false
     },
     {
@@ -103,6 +83,11 @@
     {
       "id": "Custom Variants & Functions",
       "label": "Custom Variants & Functions",
+      "exists": false
+    },
+    {
+      "id": "전역 상태 관리 라이브러리",
+      "label": "전역 상태 관리 라이브러리",
       "exists": false
     }
   ],
@@ -172,28 +157,12 @@
       "target": "Custom Variants & Functions"
     },
     {
-      "source": "Motion Elements",
+      "source": "Variants",
       "target": "Framer-motion"
     },
     {
-      "source": "Motion Elements",
-      "target": "Initial Prop"
-    },
-    {
-      "source": "test1",
-      "target": "test2"
-    },
-    {
-      "source": "test2",
-      "target": "test3"
-    },
-    {
-      "source": "test3",
-      "target": "test1"
-    },
-    {
-      "source": "test4",
-      "target": "test1"
+      "source": "Variants",
+      "target": "전역 상태 관리 라이브러리"
     }
   ]
 }
