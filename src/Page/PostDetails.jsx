@@ -24,7 +24,7 @@ export default function PostDetails({ data }) {
       .catch((err) => {
         console.error("Failed to load the markdown file:", err);
       });
-  }, [id, components]);
+  }, [id, components, content]);
 
   console.log(components);
 
