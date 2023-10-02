@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import PostDetails from "./Page/PostDetails";
 import Main from "./Page/Main";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 function App() {
   const [data, setData] = useState({ nodes: [], links: [] });
@@ -18,15 +19,17 @@ function App() {
   }, []);
 
   return (
-    <div
-      className="App"
-      style={{ display: "flex", width: "100vw", height: "100vh" }}
-    >
-      <Routes>
-        <Route path="/" element={<Main data={graphData} />} />
-        <Route path="/post/:id" element={<PostDetails data={graphData} />} />
-      </Routes>
-    </div>
+    <Provider store={store}>
+      <div
+        className="App"
+        style={{ display: "flex", width: "100vw", height: "100vh" }}
+      >
+        <Routes>
+          <Route path="/" element={<Main data={graphData} />} />
+          <Route path="/post/:id" element={<PostDetails data={graphData} />} />
+        </Routes>
+      </div>
+    </Provider>
   );
 }
 
