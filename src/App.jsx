@@ -6,8 +6,6 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 
 function App() {
-  const [data, setData] = useState({ nodes: [], links: [] });
-
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
 
   useEffect(() => {
