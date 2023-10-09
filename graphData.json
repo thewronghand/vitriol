@@ -6,6 +6,11 @@
       "exists": true
     },
     {
+      "id": "Motion Elements",
+      "label": "Motion Elements",
+      "exists": true
+    },
+    {
       "id": "Variants",
       "label": "Variants",
       "exists": true
@@ -28,11 +33,6 @@
     {
       "id": "Next.js",
       "label": "Next.js",
-      "exists": false
-    },
-    {
-      "id": "Motion Elements",
-      "label": "Motion Elements",
       "exists": false
     },
     {
@@ -155,6 +155,14 @@
     {
       "source": "Framer-motion",
       "target": "Custom Variants & Functions"
+    },
+    {
+      "source": "Motion Elements",
+      "target": "Framer-motion"
+    },
+    {
+      "source": "Motion Elements",
+      "target": "Initial Prop"
     },
     {
       "source": "Variants",
