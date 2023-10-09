@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { COLOR } from "../utils/styles";
 
 export default function ObsidianLink(props) {
   const navigate = useNavigate();
@@ -48,7 +49,8 @@ export default function ObsidianLink(props) {
 
 const ColoredAnchor = styled.a`
   text-decoration: none;
-  color: ${(props) => (props.exists ? "purple" : "red")};
+  color: ${(props) =>
+    props.exists ? COLOR.TEXT.POSITIVE : COLOR.TEXT.NEGATIVE};
 `;
 
 function getFileName(path) {
