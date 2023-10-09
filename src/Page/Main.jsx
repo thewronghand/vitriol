@@ -1,9 +1,20 @@
+import styled from "@emotion/styled";
 import Graph from "../Components/Graph";
 
 export default function Main({ data }) {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <MainContainer>
       <Graph data={data} />
-    </div>
+    </MainContainer>
   );
 }
+
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  @media (min-width: 650px) {
+    flex-direction: row;
+  }
+`;
