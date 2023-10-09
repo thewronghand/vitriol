@@ -13,7 +13,7 @@ Motion Elements는 Framer-motion에서 제공하는 **애니메이션 가능한 
 
 ## 사용 예제 :
 기본적인 `motion.div`의 사용 예제이다.
-```
+```jsx
 import { motion } from 'framer-motion';
 
 function AnimatedBox() {
