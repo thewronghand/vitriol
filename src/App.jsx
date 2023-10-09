@@ -4,6 +4,7 @@ import PostDetails from "./Page/PostDetails";
 import Main from "./Page/Main";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { css, Global } from "@emotion/react";
 
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
@@ -18,10 +19,8 @@ function App() {
 
   return (
     <Provider store={store}>
-      <div
-        className="App"
-        style={{ display: "flex", width: "100vw", height: "100vh" }}
-      >
+      <Global styles={globalStyles} />
+      <div className="App">
         <Routes>
           <Route path="/" element={<Main data={graphData} />} />
           <Route path="/post/:id" element={<PostDetails data={graphData} />} />
@@ -30,5 +29,14 @@ function App() {
     </Provider>
   );
 }
+
+const globalStyles = css`
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+  }
+`;
 
 export default App;
