@@ -20,7 +20,7 @@ export default function PostDetails({ data }) {
   const isMobile = windowWidth <= mobileWindowWidth;
 
   useEffect(() => {
-    fetch(`/src/site/notes/${id}.md`)
+    fetch(`/notes/${id}.md`)
       .then((response) => response.text())
       .then((text) => {
         const cleanText = removeConfigSection(text);

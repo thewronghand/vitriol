@@ -36,7 +36,8 @@
     "react-router-dom": "^6.16.0",
     "react-syntax-highlighter": "^15.5.0",
     "rehype-raw": "^7.0.0",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "rollup-plugin-copy": "^3.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
