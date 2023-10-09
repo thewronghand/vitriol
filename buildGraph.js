@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 const notesDir = "./src/site/notes";
-const outputFile = "./public/graphData.json";
+const outputFile = "./graphData.json";
 
 const extractLinks = (content) => {
   const linkPattern = /\[\[(.*?)\]\]/g;
@@ -11,11 +11,15 @@ const extractLinks = (content) => {
 
   while ((match = linkPattern.exec(content))) {
     let linkText = match[1];
-    linkText = linkText.split("|")[0].replace(/\\/g, "");
+    linkText = linkText.split("|")[0].trim().replace(/\\/g, "");
     links.push(linkText);
   }
 
   return links;
+};
+
+const normalizeFileName = (filename) => {
+  return filename.replace(/\s+/g, " ").trim();
 };
 
 const crawlNotes = () => {
@@ -28,12 +32,12 @@ const crawlNotes = () => {
     const filePath = path.join(notesDir, filename);
     const content = fs.readFileSync(filePath, "utf-8");
 
-    const id = path.basename(filename, ".md");
-    nodes.push({ id, label: id, exists: true }); // exists: true 추가
+    const id = normalizeFileName(path.basename(filename, ".md"));
+    nodes.push({ id, label: id, exists: true });
 
     const fileLinks = extractLinks(content);
     fileLinks.forEach((link) => {
-      links.push({ source: id, target: link });
+      links.push({ source: id, target: normalizeFileName(link) });
     });
   });
 
