@@ -41,7 +41,8 @@ function FadeInComponent() {
 위의 코드에서 `initial`, `animate`, 그리고 `transition` 속성을 사용하여 요소가 처음에는 투명한 상태에서 시작해 1초동안 천천히 페이드인 되게 만들었다.
 
 이외에도, Framer-motion은 매우 유연하게 다양한 애니메이션 및 인터랙션을 구현할 수 있게 도와준다.
-[관련 문서]
+
+#### 관련 문서
 
 - [[Motion Elements\|Motion Elements]]
 - [[Animate Prop\|Animate Prop]]
