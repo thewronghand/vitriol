@@ -5,6 +5,7 @@ import Main from "./Page/Main";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { css, Global } from "@emotion/react";
+import D2CodingTTC from "./assets/fonts/D2Coding-Ver1.3.2-20180524-all.ttc";
 
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
@@ -36,6 +37,13 @@ const globalStyles = css`
   *::after {
     box-sizing: border-box;
     margin: 0;
+  }
+  @font-face {
+    font-family: "D2Coding";
+    src: url(${D2CodingTTC});
+  }
+  body {
+    font-family: "D2Coding";
   }
 `;
 

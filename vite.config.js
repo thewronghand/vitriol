@@ -9,5 +9,5 @@ export default defineConfig({
       include: "**/*.md",
     }),
   ],
-  assetsInclude: ["**/*.md"],
+  assetsInclude: ["**/*.md", "**/*.ttc"],
 });
