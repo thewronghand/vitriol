@@ -5,7 +5,7 @@ import "./Graph.css";
 import { linkDistance } from "../utils/graphUtils";
 import { COLOR } from "../utils/styles";
 
-function Graph({ data, currentId }) {
+function MobileGraph({ data, currentId }) {
   console.log("rerendered");
   const svgRef = useRef(null);
   const navigate = useNavigate();
@@ -149,7 +149,6 @@ function Graph({ data, currentId }) {
         g.attr("transform", event.transform);
       });
     svg.call(zoomHandler);
-
     function drag(simulation) {
       function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.1).restart();
@@ -177,10 +176,10 @@ function Graph({ data, currentId }) {
   }, [data, navigate, currentId]);
 
   return (
-    <div style={{ width: "100%", height: "100%", overflow: "hidden" }}>
+    <div style={{ width: "100%", height: "40vh", overflow: "hidden" }}>
       <svg ref={svgRef} width="100%" height="100%" overflow="hidden"></svg>
     </div>
   );
 }
 
-export default Graph;
+export default MobileGraph;
