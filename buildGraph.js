@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 const notesDir = "./src/site/notes";
-const outputFile = "./dist/graphData.json";
+const outputFile = "./public/graphData.json";
 
 const extractLinks = (content) => {
   const linkPattern = /\[\[(.*?)\]\]/g;
