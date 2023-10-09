@@ -16,6 +16,11 @@
       "exists": true
     },
     {
+      "id": "test",
+      "label": "test",
+      "exists": true
+    },
+    {
       "id": "React",
       "label": "React",
       "exists": false
