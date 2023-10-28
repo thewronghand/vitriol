@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { css, Global } from '@emotion/react';
 import D2CodingTTC from './assets/fonts/D2Coding-Ver1.3.2-20180524-all.ttc';
+import styled from '@emotion/styled';
 
 function App() {
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
@@ -22,10 +23,15 @@ function App() {
     <Provider store={store}>
       <Global styles={globalStyles} />
       <div className="App">
-        <Routes>
-          <Route path="/" element={<Main data={graphData} />} />
-          <Route path="/post/:id" element={<PostDetails data={graphData} />} />
-        </Routes>
+        <Background>
+          <Routes>
+            <Route path="/" element={<Main data={graphData} />} />
+            <Route
+              path="/post/:id"
+              element={<PostDetails data={graphData} />}
+            />
+          </Routes>
+        </Background>
       </div>
     </Provider>
   );
@@ -45,7 +51,10 @@ const globalStyles = css`
   body {
     font-family: 'D2Coding';
   }
-  background: '#ffffff';
+`;
+
+const Background = styled.div`
+  background-color: white;
 `;
 
 export default App;
