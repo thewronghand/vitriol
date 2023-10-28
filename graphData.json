@@ -21,6 +21,11 @@
       "exists": true
     },
     {
+      "id": "test2",
+      "label": "test2",
+      "exists": true
+    },
+    {
       "id": "React",
       "label": "React",
       "exists": false
@@ -176,6 +181,10 @@
     {
       "source": "Variants",
       "target": "전역 상태 관리 라이브러리"
+    },
+    {
+      "source": "test2",
+      "target": "test"
     }
   ]
 }
