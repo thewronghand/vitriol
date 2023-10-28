@@ -44,8 +44,8 @@ const globalStyles = css`
   }
   body {
     font-family: 'D2Coding';
-    background: '#ffffff';
   }
+  background: '#ffffff';
 `;
 
 export default App;
