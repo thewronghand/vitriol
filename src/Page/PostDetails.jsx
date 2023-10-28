@@ -1,19 +1,20 @@
-import { useParams } from "react-router-dom";
-import Graph from "../Components/Graph";
-import { useState, useEffect } from "react";
-import useObsidianMarkdown from "../utils/hooks/useObsidianMarkdown";
-import rehypeRaw from "rehype-raw";
-import { convertObsidianLinks, removeConfigSection } from "../utils/userUtils";
-import remarkGfm from "remark-gfm";
-import styled from "@emotion/styled";
-import useDetectWindowWidth from "../utils/hooks/useDetectWindowWidth";
-import MobileGraph from "../Components/MobileGraph";
-import { StyledMarkdown } from "../utils/styles";
+import { useParams } from 'react-router-dom';
+import Graph from '../Components/Graph';
+import { useRef, useState, useEffect } from 'react';
+import useObsidianMarkdown from '../utils/hooks/useObsidianMarkdown';
+import rehypeRaw from 'rehype-raw';
+import { convertObsidianLinks, removeConfigSection } from '../utils/userUtils';
+import remarkGfm from 'remark-gfm';
+import styled from '@emotion/styled';
+import useDetectWindowWidth from '../utils/hooks/useDetectWindowWidth';
+import MobileGraph from '../Components/MobileGraph';
+import { StyledMarkdown } from '../utils/styles';
 
 const mobileWindowWidth = 650;
 
 export default function PostDetails({ data }) {
-  const [content, setContent] = useState("");
+  const docContainerRef = useRef(null);
+  const [content, setContent] = useState('');
   const { id } = useParams();
   const components = useObsidianMarkdown();
   const windowWidth = useDetectWindowWidth();
@@ -26,10 +27,12 @@ export default function PostDetails({ data }) {
         const cleanText = removeConfigSection(text);
         const convertedText = convertObsidianLinks(cleanText);
         setContent(convertedText);
-        console.log(content);
+        if (docContainerRef.current) {
+          docContainerRef.current.scrollTop = 0;
+        }
       })
       .catch((err) => {
-        console.error("Failed to load the markdown file:", err);
+        console.error('Failed to load the markdown file:', err);
       });
   }, [id, components, content]);
 
@@ -44,7 +47,7 @@ export default function PostDetails({ data }) {
           <Graph data={data} currentId={id} />
         )}
       </GraphContainer>
-      <DocContainer>
+      <DocContainer ref={docContainerRef}>
         <DocHeading>{id}</DocHeading>
         <StyledMarkdown
           rehypePlugins={[rehypeRaw]}
